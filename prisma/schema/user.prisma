@@ -1,0 +1,27 @@
+model User {
+  id                         String              @id @default(cuid())
+  email                      String              @unique
+  password                   String
+  userName                   String?
+  country                    String?
+  zipCode                    String?
+  address                    String?
+  gender                     String?
+  dateOfBirth                DateTime?
+  phoneNumber                String?
+  isVerified                 Boolean             @default(false)
+  termsAndConditionsAccepted Boolean             @default(false)
+  createdAt                  DateTime            @default(now())
+  updatedAt                  DateTime            @updatedAt
+  role                       Role                @default(CUSTOMER)
+  bulkInquiry                BulkInquiry[]
+  discountCode               DiscountCode[]
+  discountCodeUsage          DiscountCodeUsage[]
+  foodInfluencerPrograms     FoodInfluencerProgram[]
+  order                      Order[]
+  resetPassword              ResetPassword[]
+  arkshFoodPoint             Decimal             @default(100.0)
+  reviews                    Review[]
+
+  @@index([email], map: "idx_user_email")
+}

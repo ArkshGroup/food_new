@@ -1,0 +1,22 @@
+model Blog {
+    id              String    @id @default(cuid())
+    slug            String    @unique
+    title           String
+    content         String
+    summary         String
+    imageUrl        String
+    // Author
+    author          String
+    // Meta tags
+    metaTitle       String
+    metaDescription String
+    metaKeywords    String
+    // Timestamps
+    createdAt       DateTime  @default(now())
+    updatedAt       DateTime  @updatedAt
+    publishedAt     DateTime?
+
+    views Int @default(0)
+
+    isPublished Boolean @default(false)
+}

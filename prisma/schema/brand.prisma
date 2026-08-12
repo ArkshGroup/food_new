@@ -1,0 +1,20 @@
+model Brand {
+  id            Int        @id @default(autoincrement())
+  name          String     @unique
+  imageUrl      String?
+  brandDetail   String
+  createdAt     DateTime   @default(now())
+  product       Product[]
+  subBrands     SubBrand[]
+  brandPosition Int        @default(0)
+}
+
+model SubBrand {
+  id        Int       @id @default(autoincrement())
+  name      String
+  position  Int
+  createdAt DateTime  @default(now())
+  brand     Brand     @relation(fields: [brandId], references: [id])
+  brandId   Int
+  products  Product[] // new
+}

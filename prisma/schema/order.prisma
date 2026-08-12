@@ -1,0 +1,57 @@
+model Order {
+  id                String          @id @default(uuid())
+  orderNumber       Int             @unique @default(autoincrement())
+  trackingNumber    String?
+  customerId        String
+  salesChannel      SALES_CHANNEL   @default(RETAIL)
+  subTotalAmount    Decimal         @default(0.0) @db.Decimal(10, 2)
+  totalAmount       Decimal         @default(0.0) @db.Decimal(10, 2)
+  orderStatus       ORDER_STATUS    @default(PENDING)
+  paymentStatus     PAYMENT_STATUS  @default(UNPAID)
+  updatedAt         DateTime        @updatedAt
+  createdAt         DateTime        @default(now())
+  discountAmount    Decimal         @default(0.0) @db.Decimal(10, 2)
+  discountCode      String?
+  arkshFoodPoint    Decimal         @default(0.0) @db.Decimal(10, 2)
+  deliveryCharge    Decimal         @default(0.0) @db.Decimal(10, 2)
+  deliveryType      DELIVERY_TYPE   @default(INSIDE_VALLEY)
+  deliveryMethod    DELIVERY_METHOD @default(NORMAL_DELIVERY)
+  paymentScreenShot String?
+  paymentMethod     PAYMENT_METHOD  @default(DRAFT)
+  customer          User            @relation(fields: [customerId], references: [id])
+  items             OrderItem[]
+
+  orderShippingDetails OrderShippingDetails?
+}
+
+model OrderShippingDetails {
+  id            Int     @id @default(autoincrement())
+  orderId       String  @unique
+  recipientName String
+  email         String
+  addressLine1  String
+  country       String?
+  phoneNumber   String
+  latitude      Float?
+  longitude     Float?
+  city          String
+  cityId        String?
+  zone          String?
+  zoneId        String?
+  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model OrderItem {
+  id                  Int      @id @default(autoincrement())
+  orderId             String
+  productId           String?
+  productName         String
+  productImage        String
+  productApproxWeight Decimal  @default(0.0) @db.Decimal(10, 2)
+  quantity            Int
+  unitSellingPrice    Decimal  @default(0.0) @db.Decimal(10, 2)
+  specialPrice        Decimal  @default(0.0) @db.Decimal(10, 2)
+  totalPrice          Decimal  @default(0.0) @db.Decimal(10, 2)
+  order               Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product             Product? @relation(fields: [productId], references: [id])
+}

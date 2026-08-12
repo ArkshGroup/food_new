@@ -1,0 +1,15 @@
+model BulkInquiry {
+  id              Int      @id @default(autoincrement())
+  productId       String
+  productName     String
+  productQuantity Int
+  productPrice    Decimal  @default(0.0) @db.Decimal(10, 2)
+  productUnit     String
+  notes           String?
+  phoneNumber     String?
+  userId          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  product         Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

@@ -1,0 +1,35 @@
+model DiscountCode {
+  id                            Int                 @id @default(autoincrement())
+  name                          String
+  code                          String              @unique
+  startDate                     DateTime
+  endDate                       DateTime
+  minOrderAmount                Decimal             @db.Decimal(10, 2)
+  value                         Decimal             @default(0) @db.Decimal(10, 2)
+  discountPercent               Decimal             @default(0) @db.Decimal(5, 2)
+  discountType                  DiscountCodeType    @default(FIXED_AMOUNT)
+  maxDiscountAmount             Decimal             @default(0) @db.Decimal(10, 2)
+  isActive                      Boolean             @default(true)
+  usageLimit                    Int
+  usageCount                    Int                 @default(0)
+  createdAt                     DateTime            @default(now())
+  updatedAt                     DateTime            @updatedAt
+  userId                        String?
+  User                          User?               @relation(fields: [userId], references: [id])
+  isDiscountCodeVisibleToPublic Boolean             @default(false)
+  DiscountCodeUsage             DiscountCodeUsage[]
+}
+
+model DiscountCodeUsage {
+  id             Int          @id @default(autoincrement())
+  discountCodeId Int
+  userId         String
+  usedAt         DateTime     @default(now())
+  discountCode   DiscountCode @relation(fields: [discountCodeId], references: [id])
+  user           User         @relation(fields: [userId], references: [id])
+}
+
+enum DiscountCodeType {
+  FIXED_AMOUNT
+  PERCENTAGE
+}

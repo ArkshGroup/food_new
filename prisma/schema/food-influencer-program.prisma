@@ -1,0 +1,16 @@
+model FoodInfluencerProgram {
+  id           String   @id @default(cuid())
+  title        String 
+  category     String
+  description  String
+  userId       String?
+  instagramUrl String
+  facebookUrl  String
+  tiktokUrl    String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "idx_food_influencer_program_user_id")
+}

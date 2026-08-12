@@ -1,0 +1,11 @@
+model HeroSliderImage {
+  id        String   @id @default(uuid())
+  name      String
+  detail    String
+  url       String?
+  image     String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  isActive  Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+}

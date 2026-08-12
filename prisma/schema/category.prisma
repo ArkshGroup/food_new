@@ -1,0 +1,10 @@
+model Category {
+  id             Int       @id @default(autoincrement())
+  name           String    @unique
+  imageUrl       String?
+  categoryDetail String
+  createdAt      DateTime  @default(now())
+  isVisible      Boolean   @default(true)
+  product        Product[]
+  position       Int       @default(0)
+}
