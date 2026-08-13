@@ -106,6 +106,20 @@ function nodeToHtml(node: TipTapNode): string {
         ? `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" class="rounded-3xl border border-[#E8E2D9] shadow-sm max-h-[480px] w-full object-cover my-6" loading="lazy" />`
         : "";
     }
+    case "table":
+      return `<div class="overflow-x-auto my-6"><table class="w-full border-collapse border border-[#E8E2D9] my-4 rounded-xl overflow-hidden">${(node.content ?? []).map((n) => nodeToHtml(n)).join("")}</table></div>`;
+    case "tableRow":
+      return `<tr class="border-b border-[#E8E2D9]">${(node.content ?? []).map((n) => nodeToHtml(n)).join("")}</tr>`;
+    case "tableHeader":
+      return `<th class="border border-[#E8E2D9] bg-[#F0F7FD] p-3 font-semibold text-left text-stone-800 font-sans">${(node.content ?? []).map((n) => nodeToHtml(n)).join("")}</th>`;
+    case "tableCell":
+      return `<td class="border border-[#E8E2D9] p-3 text-stone-700 font-sans">${(node.content ?? []).map((n) => nodeToHtml(n)).join("")}</td>`;
+    case "youtube": {
+      const src = (node.attrs?.src as string) ?? "";
+      return src
+        ? `<div class="aspect-video my-6 rounded-2xl overflow-hidden shadow-md border border-[#E8E2D9]"><iframe src="${escapeHtml(src)}" class="w-full h-full" allowfullscreen></iframe></div>`
+        : "";
+    }
     default:
       return (node.content ?? []).map(nodeToHtml).join("");
   }
@@ -113,15 +127,53 @@ function nodeToHtml(node: TipTapNode): string {
 
 /**
  * Converts TipTap/ProseMirror JSON string to HTML.
- * Safe to run on the server (no TipTap/React).
+ * Also handles already formatted HTML strings or plain text strings gracefully.
+ * Safe to run on the server (no TipTap/React dependencies).
  */
 export function tiptapJsonToHtml(json: string | null | undefined): string {
   if (!json || typeof json !== "string") return "";
+  const trimmed = json.trim();
+  if (!trimmed) return "";
+
   try {
-    const doc = JSON.parse(json) as TipTapNode;
-    if (doc?.type !== "doc") return "";
-    return nodeToHtml(doc);
+    const doc = JSON.parse(trimmed) as TipTapNode;
+    if (doc && typeof doc === "object" && doc.type === "doc") {
+      return nodeToHtml(doc);
+    }
   } catch {
-    return "";
+    // If not valid JSON, it's either raw HTML or plain text
   }
+
+  return trimmed;
 }
+
+function nodeToPlainText(node: TipTapNode): string {
+  if (node.type === "text") {
+    return node.text ?? "";
+  }
+  if (node.content && Array.isArray(node.content)) {
+    return node.content.map(nodeToPlainText).join(" ");
+  }
+  return "";
+}
+
+/**
+ * Extracts clean plain text from TipTap JSON or HTML string for meta tags / SEO.
+ */
+export function tiptapToPlainText(json: string | null | undefined): string {
+  if (!json || typeof json !== "string") return "";
+  const trimmed = json.trim();
+  if (!trimmed) return "";
+
+  try {
+    const doc = JSON.parse(trimmed) as TipTapNode;
+    if (doc && typeof doc === "object" && doc.type === "doc") {
+      return nodeToPlainText(doc).replace(/\s+/g, " ").trim();
+    }
+  } catch {
+    // Fallback for HTML or plain text
+  }
+
+  return trimmed.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+

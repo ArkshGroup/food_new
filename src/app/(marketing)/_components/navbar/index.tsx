@@ -26,6 +26,7 @@ import { SearchNavbar } from "./product-search-result-container";
 import { useSession } from "next-auth/react";
 import { AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { useCartCountQuery } from "../../_hooks/useCart.hook";
+import { useWishlist } from "../../_hooks/useWishlist.hook";
 import { UserDropdownMenu } from "./user-drop-down-menu-box";
 
 const PRODUCT_MEGA_CATEGORIES = [
@@ -64,6 +65,7 @@ const PRODUCT_MEGA_CATEGORIES = [
 export function Navbar() {
   const session = useSession();
   const { data } = useCartCountQuery();
+  const { wishlistCount } = useWishlist();
   const pathname = usePathname();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const searchBoxRef = useRef<HTMLDivElement>(null);
@@ -339,16 +341,16 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setIsSearchOpen((prev) => !prev)}
-              className={`p-2.5 rounded-full text-stone-700 hover:text-[#0555A2] hover:bg-sky-50 transition-all duration-200 ${
+              className={
                 isSearchOpen
-                  ? "bg-[#0555A2] text-white hover:bg-[#0555A2] hover:text-white"
-                  : ""
-              }`}
+                  ? "p-2.5 text-[#0555A2] transition-colors"
+                  : "p-2.5 rounded-full text-stone-700 hover:text-[#0555A2] hover:bg-sky-50 transition-colors"
+              }
               aria-label="Toggle Search"
               title="Search Products"
             >
               {isSearchOpen ? (
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               ) : (
                 <Search className="w-5 h-5" />
               )}
@@ -357,11 +359,16 @@ export function Navbar() {
             {/* Wishlist Icon */}
             <Link
               href={"/wishlist"}
-              className="p-2.5 rounded-full text-stone-700 hover:text-[#0555A2] hover:bg-sky-50 transition-colors"
+              className="relative p-2.5 rounded-full text-stone-700 hover:text-[#0555A2] hover:bg-sky-50 transition-colors"
               aria-label="View Wishlist"
               title="Wishlist"
             >
               <Heart className="w-5 h-5" />
+              {wishlistCount > 0 && (
+                <Badge className="absolute -top-1 -right-1 bg-[#0555A2] text-white text-[10px] font-bold min-w-[18px] h-[18px] flex items-center justify-center rounded-full p-0 border-2 border-white">
+                  {wishlistCount}
+                </Badge>
+              )}
             </Link>
 
             {/* Cart Icon with Live Badge */}
@@ -408,11 +415,11 @@ export function Navbar() {
       {isSearchOpen && (
         <div
           ref={searchBoxRef}
-          className="absolute top-full left-0 right-0 w-full bg-white/98 backdrop-blur-xl border-b border-[#E8E2D9] shadow-2xl transition-all duration-300 animate-in fade-in slide-in-from-top-3 py-6 z-[9999]"
+          className="absolute top-full left-0 right-0 w-full bg-white/98 backdrop-blur-xl border-b border-[#E8E2D9] shadow-2xl transition-all duration-300 animate-in fade-in slide-in-from-top-3 py-3.5 z-[9999]"
         >
-          <div className="max-w-2xl mx-auto px-6 relative space-y-2">
+          <div className="max-w-xl mx-auto px-4 relative space-y-1.5">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-[#28AAE0]">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#28AAE0]">
                 Search Products & Snacks
               </span>
               <button
@@ -421,10 +428,13 @@ export function Navbar() {
                 className="text-stone-400 hover:text-[#0555A2] text-xs flex items-center gap-1 font-sans uppercase tracking-wider transition-colors"
               >
                 <span>Close</span>
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5" />
               </button>
             </div>
-            <SearchNavbar isFocusInput={isSearchOpen} />
+            <SearchNavbar
+              isFocusInput={isSearchOpen}
+              onClose={() => setIsSearchOpen(false)}
+            />
           </div>
         </div>
       )}

@@ -62,12 +62,15 @@ export function MobileTopHeader() {
             <button
               type="button"
               onClick={() => setShowSearchBar(false)}
-              className="p-1 rounded-full text-stone-500 hover:text-stone-900 hover:bg-stone-100"
+              className="p-1 text-[#0555A2] transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
-          <SearchNavbar isFocusInput={focusSearchInput} />
+          <SearchNavbar
+            isFocusInput={focusSearchInput}
+            onClose={() => setShowSearchBar(false)}
+          />
         </div>
       )}
     </>
@@ -114,12 +117,15 @@ export function MobileBottomNav() {
             <button
               type="button"
               onClick={() => setShowSearchBar(false)}
-              className="p-1 rounded-full text-stone-500 hover:text-stone-900 hover:bg-stone-100"
+              className="p-1 text-[#0555A2] transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
-          <SearchNavbar isFocusInput={focusSearchInput} />
+          <SearchNavbar
+            isFocusInput={focusSearchInput}
+            onClose={() => setShowSearchBar(false)}
+          />
         </div>
       )}
 

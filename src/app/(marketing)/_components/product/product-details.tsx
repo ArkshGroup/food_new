@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Minus, Plus, Youtube, Loader2Icon } from "lucide-react";
+import { ShoppingCart, Minus, Plus, Youtube, Loader2Icon, Heart } from "lucide-react";
 import { JsonToHtml } from "@/components/global/rich-text-editor/json-to-html";
 import Image from "next/image";
 import { useAction } from "next-safe-action/hooks";
@@ -12,6 +12,7 @@ import { addCartItems, buyNowMutation } from "../../_mutation/cart.mutation";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { CART_COUNT_QUERY_KEY } from "../../_hooks/useCart.hook";
+import { useWishlist } from "../../_hooks/useWishlist.hook";
 import { queryClient } from "@/components/provider/tanstack-query-provider";
 import RenderCurrency from "@/helper/render-currency";
 import { BulkOrderInquiry } from "./product-bulk-inquiry-drawer";
@@ -36,6 +37,8 @@ export function ProductDetails({
 }) {
   const session = useSession();
   const router = useRouter();
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  const isWishlisted = isInWishlist(productData.id);
 
   const [selectedImage, setSelectedImage] = useState(1);
   const [quantity, setQuantity] = useState(1);
@@ -321,6 +324,21 @@ export function ProductDetails({
                     className="w-full h-10 border-[#0555A2] text-[#0555A2] hover:bg-sky-50 text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 flex items-center justify-center shadow-2xs px-3"
                   />
                 </div>
+
+                <Button
+                  type="button"
+                  onClick={() => toggleWishlist(productData)}
+                  variant="outline"
+                  className={`h-10 w-10 p-0 rounded-full transition-all duration-300 flex items-center justify-center shrink-0 shadow-2xs ${
+                    isWishlisted
+                      ? "bg-red-50 text-red-600 border-red-200 hover:bg-red-100"
+                      : "bg-white text-stone-700 border-[#E8E2D9] hover:text-red-500 hover:border-red-200 hover:bg-red-50/50"
+                  }`}
+                  title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+                  aria-label={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+                >
+                  <Heart className={`w-4 h-4 transition-colors ${isWishlisted ? "fill-red-500 text-red-500" : ""}`} />
+                </Button>
               </div>
             </div>
 

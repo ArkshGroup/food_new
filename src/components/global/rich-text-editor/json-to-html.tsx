@@ -18,6 +18,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { TableKit } from "@tiptap/extension-table";
 import ImageResize from "tiptap-extension-resize-image";
 import Youtube from "@tiptap/extension-youtube";
+import { tiptapJsonToHtml } from "@/lib/tiptap-json-to-html";
 
 export function JsonToHtml({ json, className = "" }: { json?: string | null; className?: string }) {
   if (!json) {
@@ -27,7 +28,19 @@ export function JsonToHtml({ json, className = "" }: { json?: string | null; cla
       </div>
     );
   }
-  const content = JSON.parse(json);
+
+  let content: any = null;
+  try {
+    content = JSON.parse(json);
+  } catch {
+    const rawHtml = tiptapJsonToHtml(json);
+    return (
+      <div
+        dangerouslySetInnerHTML={{ __html: rawHtml }}
+        className={`rich-text-editor text-stone-700 text-sm sm:text-base leading-relaxed max-w-none ${className}`}
+      />
+    );
+  }
 
   const editor = useEditor({
     extensions: [

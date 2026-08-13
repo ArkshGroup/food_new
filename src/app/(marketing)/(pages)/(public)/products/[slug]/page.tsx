@@ -6,7 +6,7 @@ import {
   siteConfig,
 } from "@/app/(marketing)/_config/seo.config";
 import marketingService from "@/app/(marketing)/_services/index.service";
-import { tiptapJsonToHtml } from "@/lib/tiptap-json-to-html";
+import { tiptapJsonToHtml, tiptapToPlainText } from "@/lib/tiptap-json-to-html";
 import { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import React, { Suspense } from "react";
@@ -40,7 +40,9 @@ export async function generateMetadata(
   const metaTitle = (product as any).metaTitle || product.name;
   const metaDescription =
     (product as any).metaDescription ||
-    (typeof product.description === "string" ? product.description : product.name);
+    (product.description
+      ? tiptapToPlainText(product.description).slice(0, 160)
+      : product.name);
 
   return {
     metadataBase: new URL(siteConfig.url),
@@ -95,9 +97,7 @@ const ProductPage = async ({ params }: Props) => {
 
   const productSchema = generateProductSchemaOrg(product as any);
   const descriptionHtml = product.description
-    ? typeof product.description === "string"
-      ? product.description
-      : tiptapJsonToHtml(product.description)
+    ? tiptapJsonToHtml(product.description)
     : "";
 
   return (
