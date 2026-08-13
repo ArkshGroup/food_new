@@ -60,7 +60,7 @@ export function FeaturesBenefitsSection() {
         {/* Section Headline */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl lg:text-[40px] tracking-tight flex items-baseline justify-center gap-2 sm:gap-3 flex-wrap">
-            <span className="font-sans font-bold uppercase text-[#0555A2] tracking-wider">
+            <span className="font-sans font-extrabold uppercase text-[#0555A2] tracking-wider">
               WHY
             </span>
             <span className="font-serif font-semibold italic text-[#1C1917]">
@@ -104,18 +104,39 @@ export function FeaturesBenefitsSection() {
             ))}
           </div>
 
-          {/* Center Visual Image Column */}
-          <div className="lg:col-span-4 flex items-center justify-center my-6 lg:my-0">
-            <div className="relative w-full max-w-[460px] h-[320px] sm:h-[420px] lg:h-[500px] flex items-center justify-center">
-              <Image
-                src="/images/millet4.png"
-                alt="Himalayan Kodo Millet Harvest"
-                fill
-                quality={95}
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-105"
-                priority
-              />
+          {/* Center Visual Image Column (Perfect 1:1 Circular Porcelain Serving Dish) */}
+          <div className="lg:col-span-4 flex items-center justify-center my-6 lg:my-0 relative">
+            {/* Ambient Soft Sky Backlight Glow */}
+            <div className="w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] aspect-square rounded-full bg-gradient-to-tr from-[#0555A2]/20 via-[#28AAE0]/25 to-sky-100/40 blur-3xl absolute -z-0 pointer-events-none animate-pulse" />
+
+            {/* Outer Wrapper for Image & Floating Badges */}
+            <div className="relative z-10 w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] aspect-square group">
+              {/* Perfect 1:1 Circular Gourmet Porcelain Serving Dish Frame */}
+              <div className="relative w-full h-full aspect-square rounded-full bg-white border-4 border-white shadow-2xl ring-2 ring-[#0555A2]/20 p-1 transition-transform duration-700 hover:scale-105 overflow-hidden">
+                <div className="relative w-full h-full aspect-square rounded-full bg-white border border-sky-100 shadow-inner overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/images/millet4.png"
+                    alt="Himalayan Kodo Millet & Natural Snack Harvest"
+                    fill
+                    quality={98}
+                    sizes="(max-width: 768px) 100vw, 35vw"
+                    className="object-cover w-full h-full rounded-full transition-transform duration-700 group-hover:scale-110"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Floating Quality Badge - Top Right (z-50) */}
+              <div className="absolute -top-1 -right-1 sm:top-2 sm:right-2 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-sky-100 shadow-lg flex items-center gap-1.5 text-xs font-bold text-[#0555A2] z-50 pointer-events-none">
+                <Leaf className="w-3.5 h-3.5 text-[#28AAE0]" />
+                <span>100% Natural</span>
+              </div>
+
+              {/* Floating Quality Badge - Bottom Left (z-50) */}
+              <div className="absolute -bottom-1 -left-1 sm:bottom-2 sm:left-2 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-sky-100 shadow-lg flex items-center gap-1.5 text-xs font-bold text-[#0555A2] z-50 pointer-events-none">
+                <Sprout className="w-3.5 h-3.5 text-[#28AAE0]" />
+                <span>Made in Nepal</span>
+              </div>
             </div>
           </div>
 

@@ -7,32 +7,33 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 export function ImpactStatisticsSection() {
   return (
-    <section className="relative w-full min-h-[360px] sm:min-h-[440px] lg:min-h-[480px] flex items-center font-sans overflow-hidden py-12 sm:py-16">
-      {/* Full-width Background Image cropped slightly from top & bottom */}
-      <Image
-        src="/CTA1.png"
-        alt="Arksh Food Creator Program"
-        fill
-        priority
-        sizes="100vw"
-        quality={90}
-        className="object-cover object-center w-full h-full"
-      />
+    <section className="relative w-full min-h-[380px] sm:min-h-[440px] lg:min-h-[480px] flex items-center font-sans overflow-hidden bg-slate-900 py-12 sm:py-16 my-4">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <Image
+          src="/CTA1.png"
+          alt="Arksh Food Creator Program"
+          fill
+          priority
+          sizes="100vw"
+          quality={95}
+          className="object-cover object-center w-full h-full scale-105"
+        />
+      </div>
 
-      {/* Sky Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0555A2]/90 via-[#0555A2]/75 to-[#28AAE0]/40 mix-blend-multiply" />
-      <div className="absolute inset-0 bg-black/20" />
+      {/* Slate Tint & Gradient Overlay */}
+      <div className="absolute inset-0 z-10 bg-slate-900/40 bg-gradient-to-r from-slate-900/70 via-slate-900/40 to-slate-900/60 backdrop-blur-[0.5px]" />
 
-      {/* Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+      {/* Content Container (Restored Previous Left-Aligned Layout) */}
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8">
           {/* Left Text */}
-          <div className="space-y-2 text-left max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-bold tracking-wider text-white uppercase border border-white/30">
+          <div className="space-y-3 text-left max-w-2xl">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-bold tracking-wider text-white uppercase border border-white/30 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-[#28AAE0]" />
               <span>Creator Community</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-white tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-white tracking-tight leading-tight drop-shadow-lg">
               Become an Arksh Food Influencer
             </h2>
             <p className="text-xs sm:text-base text-white/90 font-sans leading-relaxed">
@@ -47,7 +48,7 @@ export function ImpactStatisticsSection() {
               className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-white text-[#0555A2] hover:bg-[#F0F7FD] text-xs sm:text-sm font-serif font-bold uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 group"
             >
               <span>Apply Now</span>
-              <ArrowRight className="w-4 h-4 text-[#0555A2] group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 text-[#0555A2] group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </div>
         </div>
