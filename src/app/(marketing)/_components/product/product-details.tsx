@@ -105,7 +105,7 @@ export function ProductDetails({
     buyNow({ productId: productData.id, quantity });
   };
 
-  const [activeTab, setActiveTab] = useState<"info" | "ingredients" | "reviews">("info");
+  const [activeTab, setActiveTab] = useState<"info" | "reviews">("info"); // NOTE: "ingredients" tab is currently disabled 
 
   return (
     <div className="min-h-screen bg-[#F0F7FD] font-sans text-stone-800">
@@ -361,7 +361,7 @@ export function ProductDetails({
               Product Info
             </button>
 
-            <button
+            {/* <button
               type="button"
               onClick={() => setActiveTab("ingredients")}
               className={`pb-4 text-sm sm:text-base font-serif font-bold transition-all relative border-b-2 ${
@@ -371,7 +371,7 @@ export function ProductDetails({
               }`}
             >
               Ingredients & Nutrition
-            </button>
+            </button> */}
 
             <button
               type="button"
@@ -401,69 +401,7 @@ export function ProductDetails({
           )}
 
           {/* Tab 2: Ingredients & Nutrition */}
-          {activeTab === "ingredients" && (
-            <div className="py-4 space-y-8 font-sans">
-              <div className="space-y-2">
-                <h3 className="text-xl font-serif font-bold text-[#1C1917]">Key Ingredients & Himalayan Sourcing</h3>
-                <p className="text-stone-600 text-sm sm:text-base leading-relaxed max-w-3xl">
-                  Crafted with care from natural Nepalese grains sourced directly from high-altitude hill farming communities. Featuring finger millet (Kodo), native organic corn, and wholesome ingredients with zero artificial colors or synthetic preservatives.
-                </p>
-              </div>
-
-              {/* Clean Open Feature Pillars (No Box Cards) */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 border-t border-[#E2EEF8]">
-                <div className="space-y-2">
-                  <div className="w-9 h-9 rounded-lg bg-sky-50 text-[#0555A2] flex items-center justify-center font-bold text-xs">
-                    01
-                  </div>
-                  <h4 className="text-sm font-serif font-bold text-[#1C1917]">100% Nepali Grains</h4>
-                  <p className="text-xs text-stone-600 leading-relaxed">
-                    Hand-selected Kodo millet & native maize harvested from Nepalese mountain farmers.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="w-9 h-9 rounded-lg bg-sky-50 text-[#28AAE0] flex items-center justify-center font-bold text-xs">
-                    02
-                  </div>
-                  <h4 className="text-sm font-serif font-bold text-[#1C1917]">Zero Preservatives</h4>
-                  <p className="text-xs text-stone-600 leading-relaxed">
-                    Zero synthetic chemical preservatives, artificial colors, or greasy oil fillers.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="w-9 h-9 rounded-lg bg-sky-50 text-[#0555A2] flex items-center justify-center font-bold text-xs">
-                    03
-                  </div>
-                  <h4 className="text-sm font-serif font-bold text-[#1C1917]">Rich in Fiber & Minerals</h4>
-                  <p className="text-xs text-stone-600 leading-relaxed">
-                    Packed with natural dietary fiber, calcium, iron, and slow-release energy for family health.
-                  </p>
-                </div>
-              </div>
-
-              {/* Product Specification Strip */}
-              <div className="p-5 rounded-2xl bg-white border border-[#E2EEF8] shadow-2xs grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-sans">
-                <div>
-                  <span className="block text-stone-400 font-medium">Grain Origin</span>
-                  <span className="block font-bold text-[#1C1917] mt-0.5">Nepal Hill Districts</span>
-                </div>
-                <div>
-                  <span className="block text-stone-400 font-medium">Baking Standard</span>
-                  <span className="block font-bold text-[#1C1917] mt-0.5">Hygienic Oven-Baked</span>
-                </div>
-                <div>
-                  <span className="block text-stone-400 font-medium">Dietary Type</span>
-                  <span className="block font-bold text-[#1C1917] mt-0.5">High-Fiber Vegetarian</span>
-                </div>
-                <div>
-                  <span className="block text-stone-400 font-medium">Shelf Stability</span>
-                  <span className="block font-bold text-[#1C1917] mt-0.5">6-9 Months Sealed</span>
-                </div>
-              </div>
-            </div>
-          )}
+          
 
           {/* Tab 3: Reviews */}
           {activeTab === "reviews" && (
