@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -65,6 +65,7 @@ const BlogForm = ({ initialData }: IBlogFormProps) => {
   );
 
   const [imageRemoved, setImageRemoved] = React.useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
     const subscription = form.watch((value, { name }) => {
@@ -114,7 +115,29 @@ const BlogForm = ({ initialData }: IBlogFormProps) => {
       },
     },
   );
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
 
+    const filename = (file?.name || "").toLowerCase();
+    const mimeType = (file?.type || "").toLowerCase();
+    const disallowedExts = [".svg", ".html", ".htm", ".xml", ".xhtml"];
+    const isDisallowed =
+      disallowedExts.some((ext) => filename.endsWith(ext)) ||
+      mimeType.includes("svg") ||
+      mimeType.includes("html") ||
+      mimeType.includes("xml");
+
+    if (isDisallowed) {
+      setSubmitError(
+        "Only standard image formats (JPEG, PNG, WebP) are allowed. HTML, XML, and SVG files are not permitted.",
+      );
+
+      e.target.value = "";
+      return;
+    }
+    form.setValue("imageUrl", file as any);
+    setImageRemoved(false);
+  };
   const handleRemoveImage = () => {
     // Clear form value and preview, mark as removed so update can send null
     form.setValue("imageUrl", undefined as any);
@@ -199,12 +222,8 @@ const BlogForm = ({ initialData }: IBlogFormProps) => {
                 <FormLabel>Cover Image</FormLabel>
                 <input
                   type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    form.setValue("imageUrl", file as any);
-                    setImageRemoved(false);
-                  }}
+                  accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif"
+                  onChange={handleImageChange}
                 />
 
                 {imagePreview && (
@@ -241,6 +260,11 @@ const BlogForm = ({ initialData }: IBlogFormProps) => {
                       Remove image
                     </Button>
                   </div>
+                )}
+                {submitError && (
+                  <p className="text-[#9B3B3B] text-[12px] tracking-wide">
+                    {submitError}
+                  </p>
                 )}
               </div>
             </CardContent>

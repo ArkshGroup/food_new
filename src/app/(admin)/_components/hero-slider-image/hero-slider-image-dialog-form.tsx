@@ -52,8 +52,10 @@ export function HeroSliderImageDialogForm({
   const [imagePreview, setImagePreview] = useState<string | null>(
     mode === "update" && typeof initialData?.image === "string"
       ? initialData.image
-      : null
+      : null,
   );
+
+  const [submitError, setSubmitError] = useState("");
 
   const schema =
     mode === "create"
@@ -78,6 +80,22 @@ export function HeroSliderImageDialogForm({
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      const filename = (file.name || "").toLowerCase();
+      const mimeType = (file.type || "").toLowerCase();
+      const disallowedExts = [".svg", ".html", ".htm", ".xml", ".xhtml"];
+      const isDisallowed =
+        disallowedExts.some((ext) => filename.endsWith(ext)) ||
+        mimeType.includes("svg") ||
+        mimeType.includes("html") ||
+        mimeType.includes("xml");
+
+      if (isDisallowed) {
+        setSubmitError(
+          "Only standard image formats (JPEG, PNG, WebP) are allowed. HTML, XML, and SVG files are not permitted.",
+        );
+        event.target.value = "";
+        return;
+      }
       if (!file.type.startsWith("image/")) {
         form.setError("image", {
           type: "manual",
@@ -109,7 +127,7 @@ export function HeroSliderImageDialogForm({
     form.setValue("image", undefined);
     setImagePreview(null);
     const fileInput = document.getElementById(
-      "image-upload"
+      "image-upload",
     ) as HTMLInputElement;
     if (fileInput) {
       fileInput.value = "";
@@ -125,7 +143,7 @@ export function HeroSliderImageDialogForm({
     },
     onError: (error) => {
       toast.error(
-        `Error: ${error.error.serverError?.message || "Unknown error occurred"}`
+        `Error: ${error.error.serverError?.message || "Unknown error occurred"}`,
       );
       form.reset();
       setImagePreview(null);
@@ -144,17 +162,17 @@ export function HeroSliderImageDialogForm({
       },
       onError: (error) => {
         toast.error(
-          `Error: ${error.error.serverError?.message || "Unknown error occurred"}`
+          `Error: ${error.error.serverError?.message || "Unknown error occurred"}`,
         );
         form.reset();
         setImagePreview(null);
         setOpen(false);
       },
-    }
+    },
   );
 
   const handleSubmit = (
-    data: CreateHeroSliderImageFormData | UpdateHeroSliderImageFormData
+    data: CreateHeroSliderImageFormData | UpdateHeroSliderImageFormData,
   ) => {
     mode === "create"
       ? execute(data)
@@ -253,7 +271,7 @@ export function HeroSliderImageDialogForm({
                       ) : (
                         <Input
                           type="file"
-                          accept="image/*"
+                          accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif"
                           onChange={handleImageChange}
                         />
                       )}
@@ -263,6 +281,11 @@ export function HeroSliderImageDialogForm({
                 </FormItem>
               )}
             />
+            {submitError && (
+              <p className="text-[#9B3B3B] text-[12px] tracking-wide">
+                {submitError}
+              </p>
+            )}
 
             <FormField
               control={form.control}
