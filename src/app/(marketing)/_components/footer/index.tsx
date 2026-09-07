@@ -89,15 +89,15 @@ const POLICY_LINKS = [
 function FooterSection() {
   return (
     <footer className="w-full bg-[#0d64ba] text-white font-sans relative overflow-hidden border-t border-white/20">
-      
+
       {/* Top Dual Brand Accent Gradient Line */}
       <div className="h-1 w-full bg-gradient-to-r from-[#0555A2] via-white to-[#0555A2]" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-12">
-        
+
         {/* Main Grid: 4 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-white/30">
-          
+
           {/* Column 1: Brand & Identity (4 Cols) */}
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="inline-block group space-y-0.5 leading-none">
@@ -112,7 +112,7 @@ function FooterSection() {
             <p className="text-white text-xs sm:text-sm leading-relaxed font-sans max-w-sm font-semibold">
               Crafted with pride in Nepal. We blend traditional Himalayan recipes with locally grown grains like Kodo millet and native corn to create wholesome, everyday food products.
             </p>
-            
+
             {/* Social Media Links */}
             <div className="space-y-2">
               <span className="text-[11px] font-extrabold uppercase tracking-widest text-white block">
@@ -226,6 +226,7 @@ function FooterSection() {
                   info@arkshfood.com
                 </a>
               </p>
+              {/* some information */}
               <p className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-white shrink-0" />
                 <span className="text-white">Sun - Fri, 9:00 AM - 6:00 PM</span>
@@ -238,7 +239,7 @@ function FooterSection() {
         {/* Bottom Legal Bar & Copyright */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white font-bold">
           <p>© {new Date().getFullYear()} Arksh Food. All rights reserved. Proudly Made in Nepal.</p>
-          
+
           <div className="flex flex-wrap items-center gap-5 sm:gap-6">
             {POLICY_LINKS.map((p) => (
               <Link key={p.href} href={p.href} className="text-white hover:text-white/80 transition-colors">
