@@ -13,6 +13,7 @@ import {
   Heart,
   Droplet,
 } from "lucide-react";
+import damiLogo from "@/app/assets/Dami logo.png";
 
 interface BrandItem {
   id: string;
@@ -33,10 +34,12 @@ const BRANDS_LIST: BrandItem[] = [
     name: "Dami",
     logo: "/images/dami.png",
     badge: "Flagship Nepali Brand",
-    tagline: "Celebrating Nepal's Agricultural Heritage & Wholesome Millet Snacks",
+    tagline:
+      "Celebrating Nepal's Agricultural Heritage & Wholesome Millet Snacks",
     description:
       "Dami is Arksh Food's flagship Nepali brand, proudly crafted to celebrate local ingredients, authentic flavors, and wholesome nutrition. Inspired by Nepal's rich farming heritage, Dami offers wholesome millet biscuits, corn cookies, and crisp puffs.",
-    highlight: "100% Nepali Kodo Millet & Native Corn Sourced Directly from Farmers",
+    highlight:
+      "100% Nepali Kodo Millet & Native Corn Sourced Directly from Farmers",
     filterHref: "/products?categoryNames=Biscuits",
     items: [
       "Kodo (Millet) Biscuits & Cookies",
@@ -122,7 +125,6 @@ export default function OurBrandsPage() {
 
   return (
     <div className="w-full relative bg-[#F0F7FD] min-h-screen font-sans">
-      
       {/* Hero Header Section */}
       <section className="py-16 lg:py-20 px-6 lg:px-8 max-w-7xl mx-auto border-b border-[#E8E2D9] text-center space-y-4">
         <span className="text-xs font-bold uppercase tracking-widest text-[#28AAE0]">
@@ -132,21 +134,23 @@ export default function OurBrandsPage() {
           Our <span className="italic text-[#0555A2]">Family of Brands</span>
         </h1>
         <p className="text-stone-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-sans">
-          From authentic Nepalese millet creations to premium international coffee and gourmet chocolates, discover the brands that define Arksh Food.
+          From authentic Nepalese millet creations to premium international
+          coffee and gourmet chocolates, discover the brands that define Arksh
+          Food.
         </p>
       </section>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16 space-y-12">
-        
         {/* Flagship Brand Banner (DAMI - Meet Dami) */}
         <div className="bg-[#0555A2] text-white rounded-3xl p-8 sm:p-12 shadow-xl relative overflow-hidden grid lg:grid-cols-12 gap-8 items-center border border-[#033B73]">
-          
           <div className="lg:col-span-7 space-y-6">
             <div className="flex flex-wrap items-center gap-3">
               <span className="px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-sky-200 border border-white/20 text-xs font-bold uppercase tracking-wider">
                 FLAGSHIP NEPALI BRAND
               </span>
-              <span className="text-xs text-sky-200 font-medium">★ Nepal&apos;s #1 Millet Snack Line</span>
+              <span className="text-xs text-sky-200 font-medium">
+                ★ Nepal&apos;s #1 Millet Snack Line
+              </span>
             </div>
 
             <div className="space-y-2">
@@ -154,12 +158,17 @@ export default function OurBrandsPage() {
                 Meet <span className="italic text-sky-200">Dami</span>
               </h2>
               <p className="text-sky-100 text-sm sm:text-base font-serif italic leading-relaxed">
-                &ldquo;Made with the goodness of locally sourced Nepali ingredients.&rdquo;
+                &ldquo;Made with the goodness of locally sourced Nepali
+                ingredients.&rdquo;
               </p>
             </div>
 
             <p className="text-sky-100/90 text-xs sm:text-sm leading-relaxed font-sans">
-              Dami is Arksh Food&apos;s celebrated flagship line crafted specifically for mindful snack lovers. Powered by ancient <strong className="text-white">Kodo millet</strong> and sun-ripened Nepali corn, Dami delivers irresistible crunch, zero unnecessary additives, and pure local goodness in every bite.
+              Dami is Arksh Food&apos;s celebrated flagship line crafted
+              specifically for mindful snack lovers. Powered by ancient{" "}
+              <strong className="text-white">Kodo millet</strong> and
+              sun-ripened Nepali corn, Dami delivers irresistible crunch, zero
+              unnecessary additives, and pure local goodness in every bite.
             </p>
 
             {/* Feature Pills */}
@@ -167,7 +176,10 @@ export default function OurBrandsPage() {
               <h4 className="text-xs font-bold uppercase tracking-wider text-sky-200 flex items-center gap-1.5 font-sans">
                 <Sparkles size={14} /> Highlight
               </h4>
-              <p className="text-xs text-white leading-relaxed font-sans">100% Nepali Kodo Millet & Native Corn Sourced Directly from Farmers</p>
+              <p className="text-xs text-white leading-relaxed font-sans">
+                100% Nepali Kodo Millet & Native Corn Sourced Directly from
+                Farmers
+              </p>
             </div>
 
             <div className="flex flex-wrap gap-2 pt-2">
@@ -196,7 +208,7 @@ export default function OurBrandsPage() {
           <div className="lg:col-span-5 flex items-center justify-center">
             <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20">
               <Image
-                src="/images/dami_featured.png"
+                src={damiLogo}
                 alt="Meet Dami - Arksh Food Flagship Brand"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
@@ -205,7 +217,6 @@ export default function OurBrandsPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             </div>
           </div>
-
         </div>
 
         {/* 2-Column Brand Grid for Remaining Brands */}
@@ -216,7 +227,6 @@ export default function OurBrandsPage() {
               className="bg-white rounded-3xl border border-[#E8E2D9] p-6 sm:p-8 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-6 group"
             >
               <div className="space-y-5">
-                
                 {/* Brand Header */}
                 <div className="flex items-center gap-5 border-b border-[#E8E2D9] pb-5">
                   <div className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 group-hover:scale-105 transition-transform duration-300">
@@ -264,7 +274,6 @@ export default function OurBrandsPage() {
                     ))}
                   </div>
                 </div>
-
               </div>
 
               {/* Minimal Bottom CTA (No BG, No Border) */}
@@ -274,16 +283,16 @@ export default function OurBrandsPage() {
                   className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0555A2] hover:text-[#28AAE0] transition-colors group/btn"
                 >
                   <span>Explore {brand.name} Products</span>
-                  <ArrowRight size={14} className="group-hover/btn:translate-x-1.5 transition-transform" />
+                  <ArrowRight
+                    size={14}
+                    className="group-hover/btn:translate-x-1.5 transition-transform"
+                  />
                 </Link>
               </div>
-
             </div>
           ))}
         </div>
-
       </div>
-
     </div>
   );
 }
